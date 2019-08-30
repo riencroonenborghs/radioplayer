@@ -74,5 +74,23 @@ export class PlayerComponent implements OnInit {
   starredStationChanged() {
     this.selectedCountry = this.selectedStarredStation.country;
     this.selectedStation = this.selectedStarredStation;
+    this.stationChanged();
+  }
+
+  stationChanged() {
+    // <audio preload="auto" controls>
+    //       <source src="{{selectorlectedStation.radioUrl}}" type="audio/mp3">
+    //     </audio>
+    let player = document.getElementById("audioplayer");
+    player.innerHTML = "";
+    let audio = document.createElement("audio");
+    audio.setAttribute("preload", "auto");
+    audio.setAttribute("controls", "true");
+    let source = document.createElement("source");
+    source.setAttribute("src", this.selectedStation.radioUrl);
+    source.setAttribute("type", "audio/mp3");
+    audio.appendChild(source);
+    player.appendChild(audio);
+    audio.play();
   }
 }

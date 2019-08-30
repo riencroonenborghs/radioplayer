@@ -24,7 +24,7 @@
 
         <mat-form-field id="stations" *ngIf="selectedCountry">
           <mat-label>Select a station</mat-label>
-          <mat-select [(value)]="selectedStation">
+          <mat-select [(value)]="selectedStation" (selectionChange)="stationChanged()">
             <mat-option>None</mat-option>
             <mat-option *ngFor="let station of selectedCountry.stations" [value]="station">{{station.name}}</mat-option>
           </mat-select>
@@ -46,11 +46,8 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div *ngIf="selectedCountry && selectedStation">
-      <vg-player>
-        <audio [vgMedia]="media" #media preload="auto" controls>
-          <source src="{{selectedStation.radioUrl}}" type="audio/mp3">
-        </audio>
+    <div>
+      <vg-player id="audioplayer">
       </vg-player>
     </div>
   </div>
