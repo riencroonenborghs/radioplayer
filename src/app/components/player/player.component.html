@@ -1,0 +1,57 @@
+<div fxLayout="column">
+  <div id="starred-stations">
+    <mat-form-field id="starred-stations" *ngIf="starredStations.length">
+      <mat-label>Starred Stations</mat-label>
+      <mat-select  [(value)]="selectedStarredStation" (selectionChange)="starredStationChanged()">
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let starredStation of starredStations" [value]="starredStation">
+          {{starredStation.country.name}} - {{starredStation.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="8px" fxFlex="50">
+    <div>
+      <div fxLayout="row">
+        <mat-form-field>
+          <mat-label>Select a country</mat-label>
+          <mat-select [(value)]="selectedCountry">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let country of stationService.countries" [value]="country">{{country.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field id="stations" *ngIf="selectedCountry">
+          <mat-label>Select a station</mat-label>
+          <mat-select [(value)]="selectedStation">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let station of selectedCountry.stations" [value]="station">{{station.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <mat-card id="station" *ngIf="selectedCountry && selectedStation" fxLayout="column">
+        <mat-card-header>
+          <mat-card-title>
+            <button mat-icon-button (click)="toggleStarStation(selectedStation)">
+              <mat-icon *ngIf="!selectedStation.starred">star_border</mat-icon>
+              <mat-icon *ngIf="selectedStation.starred">star</mat-icon>
+            </button>
+            <a href="{{selectedStation.siteUrl}}" target="blank">{{selectedStation.name}}</a>    
+          </mat-card-title>
+          <mat-card-subtitle>{{selectedCountry.name}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div>{{selectedStation.description}}</div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div *ngIf="selectedCountry && selectedStation">
+      <vg-player>
+        <audio [vgMedia]="media" #media preload="auto" controls>
+          <source src="{{selectedStation.radioUrl}}" type="audio/mp3">
+        </audio>
+      </vg-player>
+    </div>
+  </div>
+</div>

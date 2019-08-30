@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+
+  "name": "Radio Player",
+  "description": "Radio Player",
+  "version": "0.1",
+
+  // "browser_action": {
+  //   "default_icon": "assets/images/app.png",
+  //   "default_popup": "index.html"
+  // },
+  "app": {
+    
+  },
+  "permissions": [
+    // "activeTab",
+    // "storage",
+    // "http://*/",
+    // "contextMenus"
+  ],
+  "icons": {
+    "16": "assets/images/app.png"
+  },
+  "background": {
+    "page": "index.html"
+  }
+}
