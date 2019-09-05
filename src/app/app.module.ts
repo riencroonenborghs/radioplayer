@@ -14,12 +14,16 @@ import {VgControlsModule} from 'videogular2/compiled/controls';
 import {VgOverlayPlayModule} from 'videogular2/compiled/overlay-play';
 import {VgBufferingModule} from 'videogular2/compiled/buffering';
 import { PlayerComponent } from './components/player/player.component';
+import { TimerComponent } from './components/timer/timer.component';
+import { LjustPipe } from './pipes/ljust.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PlayerComponent
+    PlayerComponent,
+    TimerComponent,
+    LjustPipe
   ],
   imports: [
     BrowserModule,

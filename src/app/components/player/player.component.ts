@@ -77,20 +77,45 @@ export class PlayerComponent implements OnInit {
     this.stationChanged();
   }
 
+  isPlaying: boolean = false;
+  timePlaying: number = 0;
+  timePlayingInterval: number;
+
   stationChanged() {
-    // <audio preload="auto" controls>
-    //       <source src="{{selectorlectedStation.radioUrl}}" type="audio/mp3">
-    //     </audio>
-    let player = document.getElementById("audioplayer");
-    player.innerHTML = "";
-    let audio = document.createElement("audio");
-    audio.setAttribute("preload", "auto");
-    audio.setAttribute("controls", "true");
-    let source = document.createElement("source");
-    source.setAttribute("src", this.selectedStation.radioUrl);
-    source.setAttribute("type", "audio/mp3");
-    audio.appendChild(source);
-    player.appendChild(audio);
-    audio.play();
+    let player = document.getElementById("vg-audioplayer");
+    player.innerHTML = `<audio id='player'><source src="${this.selectedStation.radioUrl}" type="audio/mp3"></source></audio>`;
+    player.getElementsByTagName("audio")[0].play();
+    this.timePlaying == 0;
+    this.startPlaying();
+  }
+
+  play() {
+    let player = document.getElementById("vg-audioplayer");
+    player.getElementsByTagName("audio")[0].play();
+    this.startPlaying();
+  }
+  pause() {
+    let player = document.getElementById("vg-audioplayer");
+    player.getElementsByTagName("audio")[0].pause();
+    this.stopPlaying();
+  }
+  volumeUp() {
+    let player = document.getElementById("vg-audioplayer");
+    player.getElementsByTagName("audio")[0].volume += 0.1;
+  }
+  volumeDown() {
+    let player = document.getElementById("vg-audioplayer");
+    player.getElementsByTagName("audio")[0].volume -= 0.1;
+  }
+
+  private startPlaying() {
+    this.isPlaying = true;
+    this.timePlayingInterval = setInterval(() => {
+      this.timePlaying += 1;
+    }, 1000);
+  }
+  private stopPlaying() {
+    this.isPlaying = false;
+    clearInterval(this.timePlayingInterval);
   }
 }

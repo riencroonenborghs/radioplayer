@@ -52,7 +52,7 @@ export const ALLCOUNTRIES = {
   // "it" : "Italia",
   // "lu" : "Lëtzebuerg",
   // "no" : "Norge",
-  // "nl" : "Nederland",
+  "nl" : "Nederland",
   // "hu" : "Magyarország",
   // "se" : "Sverige",
   // "tr" : "Türkiye",

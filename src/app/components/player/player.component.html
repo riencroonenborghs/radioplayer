@@ -11,9 +11,9 @@
     </mat-form-field>
   </div>
 
-  <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="8px" fxFlex="50">
+  <div fxLayout="column">
     <div>
-      <div fxLayout="row">
+      <div fxLayout="column">
         <mat-form-field>
           <mat-label>Select a country</mat-label>
           <mat-select [(value)]="selectedCountry">
@@ -46,8 +46,24 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div>
-      <vg-player id="audioplayer">
+    <div fxLayout="column" fxLayoutAlign="center center" [ngClass]="{hidden: !selectedCountry && !selectedStation}">
+      <div fxLayout="row">
+        <button mat-icon-button (click)="play()" *ngIf="!isPlaying">
+          <mat-icon>play_arrow</mat-icon>
+        </button>
+        <button mat-icon-button (click)="pause()" *ngIf="isPlaying">
+          <mat-icon>pause</mat-icon>
+        </button>
+        <button mat-icon-button (click)="volumeDown()">
+          <mat-icon>volume_down</mat-icon>
+        </button>
+        <button mat-icon-button (click)="volumeUp()">
+          <mat-icon>volume_up</mat-icon>
+        </button>
+      </div>
+      <app-timer [time]="timePlaying"></app-timer>
+      <vg-player id="vg-audioplayer">
+        <audio id="player"></audio>
       </vg-player>
     </div>
   </div>

@@ -1,9 +1,16 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Radio Player</span>
-  </mat-toolbar-row>
-</mat-toolbar>
+<mat-card id="view">
+  <mat-card-content>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+        <span>Radio Player</span>
+        <a href="https://github.com/riencroonenborghs/radioplayer" target="blank">
+          <img src="assets/images/github-white.png" />
+        </a>
+      </mat-toolbar-row>
+    </mat-toolbar>
 
-<app-player></app-player>
+    <app-player></app-player>
 
-<router-outlet></router-outlet>
+    <router-outlet></router-outlet>
+  </mat-card-content>
+</mat-card>
