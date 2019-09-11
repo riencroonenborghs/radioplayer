@@ -9,10 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatToolbarModule, MatSelectModule, MatIconModule, MatCardModule } from '@angular/material';
 
 
-import {VgCoreModule} from 'videogular2/compiled/core';
-import {VgControlsModule} from 'videogular2/compiled/controls';
-import {VgOverlayPlayModule} from 'videogular2/compiled/overlay-play';
-import {VgBufferingModule} from 'videogular2/compiled/buffering';
 import { PlayerComponent } from './components/player/player.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { LjustPipe } from './pipes/ljust.pipe';
@@ -29,7 +25,6 @@ import { LjustPipe } from './pipes/ljust.pipe';
     BrowserModule,
     AppRoutingModule,
     FlexLayoutModule,
-    VgCoreModule, VgControlsModule, VgOverlayPlayModule, VgBufferingModule,
     BrowserAnimationsModule, MatButtonModule, MatToolbarModule, MatSelectModule, MatIconModule, MatCardModule
   ],
   providers: [],
