@@ -1,7 +1,6 @@
 <mat-form-field id="starred-stations" *ngIf="starredStations.length">
-  <mat-label>Starred Stations</mat-label>
+  <mat-label>Starred stations</mat-label>
   <mat-select  [(value)]="selectedStarredStation" (selectionChange)="starredStationChanged()">
-    <mat-option>None</mat-option>
     <mat-option *ngFor="let starredStation of starredStations" [value]="starredStation">
       {{starredStation.country.name}} - {{starredStation.name}}
     </mat-option>

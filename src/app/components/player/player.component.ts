@@ -63,6 +63,10 @@ export class PlayerComponent implements OnInit {
 
   stationChanged() {
     this.resetTimer();
+    setTimeout(() => { this.buildPlayer() }, 500);
+  }
+
+  private buildPlayer() {
     let player = document.getElementById("vg-audioplayer");
     player.innerHTML = `<audio id='player'><source src="${this.selectedStation.radioUrl}" type="audio/mp3"></source></audio>`;
     player.getElementsByTagName("audio")[0].play();
@@ -84,7 +88,7 @@ export class PlayerComponent implements OnInit {
   clearPlayer() {
     this.resetTimer();
     let player = document.getElementById("vg-audioplayer");
-    if(player.getElementsByTagName("audio")[0] == undefined) return;
+    if(player == undefined || player.getElementsByTagName("audio")[0] == undefined) return;
     player.getElementsByTagName("audio")[0].pause();
     player.innerHTML = "";
   }

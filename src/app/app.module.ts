@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatToolbarModule, MatSelectModule, MatIconModule, MatCardModule } from '@angular/material';
+import { MatButtonModule, MatToolbarModule, MatSelectModule, MatIconModule, MatCardModule, MatDividerModule } from '@angular/material';
 
 
 import { PlayerComponent } from './components/player/player.component';
@@ -29,7 +29,7 @@ import { StarredStationsComponent } from './components/starred-stations/starred-
     BrowserModule,
     AppRoutingModule,
     FlexLayoutModule,
-    BrowserAnimationsModule, MatButtonModule, MatToolbarModule, MatSelectModule, MatIconModule, MatCardModule
+    BrowserAnimationsModule, MatButtonModule, MatToolbarModule, MatSelectModule, MatIconModule, MatCardModule, MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

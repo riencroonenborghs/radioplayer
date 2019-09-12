@@ -32,29 +32,30 @@
           <mat-card-subtitle>{{selectedCountry.name}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <div>{{selectedStation.description}}</div>
+          <div id="description">{{selectedStation.description}}</div>
+          <mat-divider></mat-divider>
+          <div id="player-wrapper" fxLayout="column" fxLayoutAlign="center center">
+            <div fxLayout="row">
+              <button mat-icon-button (click)="play()" *ngIf="!isPlaying">
+                <mat-icon>play_arrow</mat-icon>
+              </button>
+              <button mat-icon-button (click)="pause()" *ngIf="isPlaying">
+                <mat-icon>pause</mat-icon>
+              </button>
+              <button mat-icon-button (click)="volumeDown()">
+                <mat-icon>volume_down</mat-icon>
+              </button>
+              <button mat-icon-button (click)="volumeUp()">
+                <mat-icon>volume_up</mat-icon>
+              </button>
+            </div>
+            <app-timer [time]="timePlaying"></app-timer>
+            <div id="vg-audioplayer">
+              <audio id="player"></audio>
+            </div>
+          </div>
         </mat-card-content>
       </mat-card>
-    </div>
-    <div fxLayout="column" fxLayoutAlign="center center" [ngClass]="{hidden: !selectedCountry && !selectedStation}">
-      <div fxLayout="row">
-        <button mat-icon-button (click)="play()" *ngIf="!isPlaying">
-          <mat-icon>play_arrow</mat-icon>
-        </button>
-        <button mat-icon-button (click)="pause()" *ngIf="isPlaying">
-          <mat-icon>pause</mat-icon>
-        </button>
-        <button mat-icon-button (click)="volumeDown()">
-          <mat-icon>volume_down</mat-icon>
-        </button>
-        <button mat-icon-button (click)="volumeUp()">
-          <mat-icon>volume_up</mat-icon>
-        </button>
-      </div>
-      <app-timer [time]="timePlaying"></app-timer>
-      <div id="vg-audioplayer">
-        <audio id="player"></audio>
-      </div>
-    </div>
+    </div>    
   </div>
 </div>
