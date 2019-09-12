@@ -12,13 +12,10 @@
         <app-countries  [country]="selectedCountry"
                         (onSelectedCountry)="onSelectedCountry($event)"></app-countries>
 
-        <mat-form-field id="stations" *ngIf="selectedCountry">
-          <mat-label>Select a station</mat-label>
-          <mat-select [(value)]="selectedStation" (selectionChange)="stationChanged()">
-            <mat-option>None</mat-option>
-            <mat-option *ngFor="let station of selectedCountry.stations" [value]="station">{{station.name}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <app-stations [station]="selectedStation"
+                      [stations]="selectedCountry.stations"
+                      (onSelectedStation)="onSelectedStation($event)"
+                      *ngIf="selectedCountry"></app-stations>        
       </div>
       <mat-card id="station" *ngIf="selectedCountry && selectedStation" fxLayout="column">
         <mat-card-header>

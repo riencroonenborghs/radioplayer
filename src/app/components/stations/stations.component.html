@@ -1,0 +1,11 @@
+<mat-form-field>
+  <input type="text" placeholder="Pick a station" matInput [formControl]="myControl" [matAutocomplete]="auto">
+  <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="resetAutocomplete()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="stationSelected($event)">
+    <mat-option *ngFor="let station of filteredStations | async" [value]="station">
+      {{station.name}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
