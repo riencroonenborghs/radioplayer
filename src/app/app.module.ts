@@ -12,6 +12,8 @@ import { MatButtonModule, MatToolbarModule, MatSelectModule, MatIconModule, MatC
 import { PlayerComponent } from './components/player/player.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { LjustPipe } from './pipes/ljust.pipe';
+import { CountriesComponent } from './components/countries/countries.component';
+import { StarredStationsComponent } from './components/starred-stations/starred-stations.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { LjustPipe } from './pipes/ljust.pipe';
     AppComponent,
     PlayerComponent,
     TimerComponent,
-    LjustPipe
+    LjustPipe,
+    CountriesComponent,
+    StarredStationsComponent
   ],
   imports: [
     BrowserModule,

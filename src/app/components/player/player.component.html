@@ -1,26 +1,16 @@
 <div fxLayout="column">
   <div id="starred-stations">
-    <mat-form-field id="starred-stations" *ngIf="starredStations.length">
-      <mat-label>Starred Stations</mat-label>
-      <mat-select  [(value)]="selectedStarredStation" (selectionChange)="starredStationChanged()">
-        <mat-option>None</mat-option>
-        <mat-option *ngFor="let starredStation of starredStations" [value]="starredStation">
-          {{starredStation.country.name}} - {{starredStation.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <app-starred-stations [countries]="countries"
+                          [reloadData]="starredStationsReload"
+                          (onSelectedCountry)="onSelectedCountry($event)"
+                          (onSelectedStation)="onSelectedStation($event)"></app-starred-stations>
   </div>
 
   <div fxLayout="column">
     <div>
       <div fxLayout="column">
-        <mat-form-field>
-          <mat-label>Select a country</mat-label>
-          <mat-select [(value)]="selectedCountry">
-            <mat-option>None</mat-option>
-            <mat-option *ngFor="let country of stationService.countries" [value]="country">{{country.name}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <app-countries  [country]="selectedCountry"
+                        (onSelectedCountry)="onSelectedCountry($event)"></app-countries>
 
         <mat-form-field id="stations" *ngIf="selectedCountry">
           <mat-label>Select a station</mat-label>

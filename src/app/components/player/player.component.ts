@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { StationService } from "../../services/station.service";
+import { StarredStationsService } from "../../services/starred-stations.service";
+
 import { Country } from "../../models/country";
 import { Station } from "../../models/station";
 
@@ -15,65 +17,43 @@ export class PlayerComponent implements OnInit {
   selectedCountry: Country;
   selectedStation: Station;
   selectedStarredStation: Station;
-  starredStations: Array<Station>;
 
-  private storageKey: string = "radioplayer";
+  countries: Array<Country>;
+  starredStationsReload: any;
 
   constructor(
-    public stationService: StationService
+    private stationService: StationService,
+    private starredStationsService: StarredStationsService
   ) {
-    stationService.loadCountries();
-    this.starredStations = new Array<Station>();
-
-    let starredStations = this.getStarredStations();
-    stationService.countries.forEach((country) => {
-      country.stations.forEach((station) => {
-        station.starred = starredStations.indexOf(station.siteUrl) != -1;
-        if(station.starred) {
-          this.starredStations.push(station);
-        }
-      });
-    });
-
-    this.starredStations = this.starredStations.sort((a: Station, b: Station) => {
-      if(`${a.country.name} - ${a.name}` < `${b.country.name} - ${b.name}`) { return -1; }
-      else { return 1; }
-    });
+    this.countries = new Array<Country>();
   }
 
   ngOnInit() {
+    this.stationService.loadCountries();
+    this.countries = this.stationService.countries;
   }
 
   toggleStarStation(station: Station) {
-    let loadedStarredStations = this.getStarredStations();
+    let loadedStarredStations = this.starredStationsService.getStarredStations();
     let index = loadedStarredStations.indexOf(station.siteUrl);
     if(index != -1) {
       loadedStarredStations.splice(index, 1);
-      this.starredStations.splice(index, 1);
       station.starred = false;
     } else {
       loadedStarredStations.push(station.siteUrl);
-      this.starredStations.push(station);
       station.starred = true;
     }
-    this.setStarredStations(loadedStarredStations);
+    this.starredStationsReload = new Date();
+    this.starredStationsService.setStarredStations(loadedStarredStations);
   }
 
-  private getStarredStations() {
-    let storedData = localStorage.getItem(this.storageKey);
-    if(storedData != null) {
-      return JSON.parse(storedData);
-    } else {
-      return []
-    }
-  }
-  private setStarredStations(starredStations: Array<string>) {
-    localStorage.setItem(this.storageKey, JSON.stringify(starredStations));
+  onSelectedCountry(country) {
+    this.selectedCountry = country;
+    this.clearPlayer();
   }
 
-  starredStationChanged() {
-    this.selectedCountry = this.selectedStarredStation.country;
-    this.selectedStation = this.selectedStarredStation;
+  onSelectedStation(station) {
+    this.selectedStation = station;
     this.stationChanged();
   }
 
@@ -82,40 +62,57 @@ export class PlayerComponent implements OnInit {
   timePlayingInterval: number;
 
   stationChanged() {
+    this.resetTimer();
     let player = document.getElementById("vg-audioplayer");
     player.innerHTML = `<audio id='player'><source src="${this.selectedStation.radioUrl}" type="audio/mp3"></source></audio>`;
     player.getElementsByTagName("audio")[0].play();
-    this.timePlaying == 0;
-    this.startPlaying();
+    this.startTimer();
   }
 
   play() {
     let player = document.getElementById("vg-audioplayer");
     player.getElementsByTagName("audio")[0].play();
-    this.startPlaying();
+    this.startTimer();
   }
+
   pause() {
     let player = document.getElementById("vg-audioplayer");
     player.getElementsByTagName("audio")[0].pause();
-    this.stopPlaying();
+    this.stopTimer();
   }
+
+  clearPlayer() {
+    this.resetTimer();
+    let player = document.getElementById("vg-audioplayer");
+    if(player.getElementsByTagName("audio")[0] == undefined) return;
+    player.getElementsByTagName("audio")[0].pause();
+    player.innerHTML = "";
+  }
+
   volumeUp() {
     let player = document.getElementById("vg-audioplayer");
     player.getElementsByTagName("audio")[0].volume += 0.1;
   }
+
   volumeDown() {
     let player = document.getElementById("vg-audioplayer");
     player.getElementsByTagName("audio")[0].volume -= 0.1;
   }
 
-  private startPlaying() {
+  private startTimer() {
     this.isPlaying = true;
     this.timePlayingInterval = setInterval(() => {
       this.timePlaying += 1;
     }, 1000);
   }
-  private stopPlaying() {
+
+  private stopTimer() {
     this.isPlaying = false;
     clearInterval(this.timePlayingInterval);
+  }
+
+  private resetTimer() {
+    this.stopTimer();
+    this.timePlaying = 0;
   }
 }
